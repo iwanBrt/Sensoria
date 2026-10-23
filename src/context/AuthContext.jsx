@@ -5,14 +5,12 @@ import { dbService } from '../services/dbService';
 const AuthContext = createContext();
 
 const SENSORY_LABELS = {
-  netra: 'Tunanetra (Mode Suara & Pembaca Layar)',
-  kurang_awas: 'Kurang Awas (Kontras Tinggi & Font Besar)',
   rungu: 'Tunarungu (Takarir CC & Video JBI)',
   wicara: 'Tunawicara (Navigasi Sentuh Murni)',
 };
 
 export const AuthProvider = ({ children }) => {
-  const { toggleHighContrast, increaseFontSize, speak, announce } = useA11y();
+  const { announce } = useA11y();
 
   // Load current session from localStorage
   const [currentUser, setCurrentUser] = useState(() => {
@@ -35,17 +33,7 @@ export const AuthProvider = ({ children }) => {
 
   // Apply sensory adaptations to document and assistive tools
   const applySensoryAdaptation = (name, sensoryProfile) => {
-    if (sensoryProfile === 'netra') {
-      announce(`Halo ${name}! Selamat datang di ruang belajarmu. Panduan suara telah aktif.`);
-      speak(
-        `Halo ${name}! Selamat datang di SENSORIA. Gunakan tombol Tab di keyboard untuk berpindah antarmenu, dan tombol Enter untuk memilih pelajaran.`
-      );
-    } else if (sensoryProfile === 'kurang_awas') {
-      const isHighContrast = document.documentElement.classList.contains('high-contrast');
-      if (!isHighContrast) toggleHighContrast();
-      increaseFontSize();
-      announce(`Halo ${name}! Mode kontras tinggi dan huruf ekstra besar telah diaktifkan untuk kenyamanan matamu.`);
-    } else if (sensoryProfile === 'rungu') {
+    if (sensoryProfile === 'rungu') {
       announce(`Halo ${name}! Mode visual aktif. Seluruh video telah dilengkapi teks takarir CC dan bahasa isyarat.`);
     } else if (sensoryProfile === 'wicara') {
       announce(`Halo ${name}! Mode sentuh santai aktif. Kamu dapat belajar mandiri tanpa perlu berbicara.`);
@@ -122,7 +110,7 @@ export const AuthProvider = ({ children }) => {
     } catch (e) {}
 
     // Fallback: If not found in local, create or login gracefully
-    const chosenProfile = sensoryProfile || matchedUser?.sensoryProfile || 'netra';
+    const chosenProfile = sensoryProfile || matchedUser?.sensoryProfile || 'rungu';
     const cleanName = matchedUser?.name || contact.split('@')[0] || 'Teman Sensoria';
 
     const studentUser = {

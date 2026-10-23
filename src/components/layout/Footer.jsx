@@ -42,12 +42,12 @@ const Footer = () => {
           </div>
 
           {/* Quick Keyboard Hint */}
-          <div className="flex items-center gap-2 text-xs">
-            <Keyboard className="w-4 h-4 text-amber-400" aria-hidden="true" />
-            <span className="text-slate-400">Tekan tombol</span>
-            <kbd className="px-2 py-0.5 rounded bg-black/60 border border-slate-600 font-mono text-amber-300 font-bold">Tab</kbd>
-            <span className="text-slate-400">untuk pindah tombol &</span>
-            <kbd className="px-2 py-0.5 rounded bg-black/60 border border-slate-600 font-mono text-amber-300 font-bold">Enter</kbd>
+          <div className="flex flex-wrap items-center justify-center md:justify-start gap-1.5 sm:gap-2 text-xs text-center md:text-left">
+            <Keyboard className="w-4 h-4 text-amber-400 shrink-0" aria-hidden="true" />
+            <span className="text-slate-400">Tekan</span>
+            <kbd className="px-1.5 py-0.5 rounded bg-black/60 border border-slate-600 font-mono text-amber-300 font-bold text-[11px]">Tab</kbd>
+            <span className="text-slate-400">untuk pindah &</span>
+            <kbd className="px-1.5 py-0.5 rounded bg-black/60 border border-slate-600 font-mono text-amber-300 font-bold text-[11px]">Enter</kbd>
             <span className="text-slate-400">untuk memilih</span>
           </div>
 

@@ -277,7 +277,7 @@ const AdminCourses = ({ courses, onSaveCourse, onDeleteCourse }) => {
               </div>
             </div>
 
-            <div className="flex items-center gap-2 self-end md:self-center">
+            <div className="flex flex-wrap items-center gap-2 self-start sm:self-end md:self-center pt-2 sm:pt-0">
               <Link
                 to={`/course?id=${course.id}`}
                 target="_blank"

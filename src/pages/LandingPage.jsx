@@ -3,8 +3,6 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useA11y } from '../context/A11yContext';
 import { useAuth } from '../context/AuthContext';
 import {
-  Headphones,
-  Eye,
   Ear,
   MousePointerClick,
   Shield,
@@ -26,7 +24,7 @@ const LandingPage = () => {
 
   // Student Form State
   const [studentName, setStudentName] = useState('');
-  const [sensoryProfile, setSensoryProfile] = useState('netra');
+  const [sensoryProfile, setSensoryProfile] = useState('rungu');
 
   // Admin Form State
   const [adminUsername, setAdminUsername] = useState('admin');
@@ -34,18 +32,6 @@ const LandingPage = () => {
   const [adminError, setAdminError] = useState('');
 
   const sensoryOptions = [
-    {
-      id: 'netra',
-      title: 'Tunanetra',
-      desc: 'Narasi suara otomatis, deskripsi adegan audio, dan ramah pembaca layar.',
-      icon: Headphones,
-    },
-    {
-      id: 'kurang_awas',
-      title: 'Kurang Awas (Low Vision)',
-      desc: 'Latar hitam kontras kuning anti-silau dan ukuran huruf membesar.',
-      icon: Eye,
-    },
     {
       id: 'rungu',
       title: 'Tunarungu',
@@ -80,16 +66,16 @@ const LandingPage = () => {
     <div className="w-full">
       {/* 1. HERO SECTION: PENJELASAN TENTANG SENSORIA */}
       <section
-        className={`py-12 sm:py-20 border-b transition-colors ${
+        className={`py-8 sm:py-16 md:py-20 border-b transition-colors ${
           highContrast
             ? 'bg-black border-yellow-400 text-yellow-300'
             : 'bg-gradient-to-b from-slate-50 via-blue-50/40 to-white border-slate-200'
         }`}
       >
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto px-3 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto text-center">
             <span
-              className={`inline-block text-xs font-black uppercase tracking-wider px-3.5 py-1 rounded-full mb-4 ${
+              className={`inline-block text-[10px] sm:text-xs font-black uppercase tracking-wider px-3 py-1 rounded-full mb-3 sm:mb-4 ${
                 highContrast
                   ? 'bg-yellow-400 text-black'
                   : 'bg-blue-100 text-blue-900 border border-blue-200'
@@ -99,7 +85,7 @@ const LandingPage = () => {
             </span>
 
             <h1
-              className={`text-3xl sm:text-5xl font-black tracking-tight leading-tight mb-5 ${
+              className={`text-2xl sm:text-4xl md:text-5xl font-black tracking-tight leading-snug sm:leading-tight mb-3 sm:mb-5 ${
                 highContrast ? 'text-yellow-400' : 'text-slate-900'
               }`}
             >
@@ -107,33 +93,33 @@ const LandingPage = () => {
             </h1>
 
             <p
-              className={`text-base sm:text-lg leading-relaxed mb-6 ${
+              className={`text-xs sm:text-base md:text-lg leading-relaxed mb-5 sm:mb-6 ${
                 highContrast ? 'text-yellow-200' : 'text-slate-600'
               }`}
             >
-              <strong>SENSORIA</strong> adalah platform edukasi inklusif yang dirancang secara khusus untuk mendampingi teman-teman <strong>Tunanetra, Kurang Awas, Tunarungu, dan Tunawicara</strong> dalam mempelajari keterampilan karya nyata sekaligus berlatih menghitung keuntungan usaha mandiri.
+              <strong>SENSORIA</strong> adalah platform edukasi yang dirancang secara khusus untuk mendampingi teman-teman <strong>Tunarungu dan Tunawicara</strong> dalam mempelajari keterampilan karya nyata sekaligus berlatih menentukan harga jual usaha mandiri.
             </p>
 
-            <div className="flex flex-wrap items-center justify-center gap-4 text-xs sm:text-sm font-semibold opacity-90">
+            <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-4 text-xs sm:text-sm font-semibold opacity-90">
               <span className="flex items-center gap-1.5">
-                <CheckCircle2 className={`w-4 h-4 ${highContrast ? 'text-yellow-400' : 'text-emerald-600'}`} />
-                Video Pembelajaran Vokasi
+                <CheckCircle2 className={`w-4 h-4 shrink-0 ${highContrast ? 'text-yellow-400' : 'text-emerald-600'}`} />
+                <span>Video Praktik Vokasi</span>
               </span>
               <span className="flex items-center gap-1.5">
-                <CheckCircle2 className={`w-4 h-4 ${highContrast ? 'text-yellow-400' : 'text-emerald-600'}`} />
-                Penerjemah Bahasa Isyarat (JBI) & Takarir
+                <CheckCircle2 className={`w-4 h-4 shrink-0 ${highContrast ? 'text-yellow-400' : 'text-emerald-600'}`} />
+                <span>Bahasa Isyarat (JBI) & Takarir</span>
               </span>
               <span className="flex items-center gap-1.5">
-                <CheckCircle2 className={`w-4 h-4 ${highContrast ? 'text-yellow-400' : 'text-emerald-600'}`} />
-                Kalkulator Laba Rugi Ramah Ketuk
+                <CheckCircle2 className={`w-4 h-4 shrink-0 ${highContrast ? 'text-yellow-400' : 'text-emerald-600'}`} />
+                <span>Kalkulator HPP Sentuh</span>
               </span>
             </div>
 
             {/* Single Primary Action Button */}
-            <div className="flex items-center justify-center mt-8">
+            <div className="flex items-center justify-center mt-6 sm:mt-8">
               <Link
                 to="/login"
-                className={`inline-flex items-center gap-2 px-8 py-3.5 rounded-2xl font-black text-sm sm:text-base shadow-xl transition-transform hover:-translate-y-0.5 ${
+                className={`inline-flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-3.5 rounded-2xl font-black text-xs sm:text-base shadow-xl transition-transform hover:-translate-y-0.5 ${
                   highContrast
                     ? 'bg-yellow-400 text-black hover:bg-yellow-300'
                     : 'bg-blue-600 text-white hover:bg-blue-500 shadow-blue-600/30'

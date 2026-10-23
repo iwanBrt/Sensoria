@@ -253,43 +253,44 @@ const AdminDashboard = () => {
       {/* 2. MAIN WORKSPACE */}
       <div className="flex-1 flex flex-col min-w-0">
         {/* Top Header Bar */}
-        <header className="h-16 bg-white border-b border-slate-200/80 px-4 sm:px-6 flex items-center justify-between gap-4 sticky top-0 z-20">
+        <header className="h-16 bg-white border-b border-slate-200/80 px-3 sm:px-6 flex items-center justify-between gap-2 sm:gap-4 sticky top-0 z-20 w-full">
           {/* Left: Mobile hamburger + Search + Date Badge */}
-          <div className="flex items-center gap-3 flex-1 max-w-md">
+          <div className="flex items-center gap-2 sm:gap-3 flex-1 max-w-md min-w-0">
             {/* Mobile menu toggle */}
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-1.5 rounded-lg text-slate-600 hover:bg-slate-100"
+              className="md:hidden p-2 rounded-lg text-slate-600 hover:bg-slate-100 shrink-0"
+              aria-label={mobileMenuOpen ? 'Tutup menu navigasi' : 'Buka menu navigasi'}
             >
-              <Menu className="w-5 h-5" />
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
 
             {/* Search Input */}
-            <div className="relative flex-1">
+            <div className="relative flex-1 min-w-0">
               <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-2.5" />
               <input
                 type="text"
-                placeholder="Cari modul, materi, atau siswa..."
-                className="w-full pl-8 pr-3 py-1.5 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-slate-400 focus:bg-white transition"
+                placeholder="Cari data..."
+                className="w-full pl-8 pr-2 py-1.5 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-slate-400 focus:bg-white transition"
               />
             </div>
 
             {/* Date Badge */}
-            <div className="hidden sm:inline-flex items-center px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-medium text-xs flex-shrink-0">
+            <div className="hidden lg:inline-flex items-center px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-medium text-xs flex-shrink-0">
               {todayDateString}
             </div>
           </div>
 
           {/* Right: Link to Public Site + Notification Bell + Admin Avatar */}
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
             {/* View Student Site Link */}
             <Link
               to="/courses"
-              className="hidden lg:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition"
+              className="hidden sm:inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition"
               title="Buka tampilan web siswa / kelas"
             >
-              <span>Lihat Web Siswa</span>
+              <span>Web Siswa</span>
               <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
             </Link>
 
@@ -306,8 +307,8 @@ const AdminDashboard = () => {
             </div>
 
             {/* User Avatar */}
-            <div className="flex items-center gap-2 pl-2 border-l border-slate-200">
-              <div className="w-8 h-8 rounded-full bg-slate-900 text-white font-bold text-xs flex items-center justify-center">
+            <div className="flex items-center gap-2 pl-1.5 sm:pl-2 border-l border-slate-200">
+              <div className="w-8 h-8 rounded-full bg-slate-900 text-white font-bold text-xs flex items-center justify-center shrink-0">
                 A
               </div>
               <div className="hidden lg:block text-left">
@@ -322,28 +323,65 @@ const AdminDashboard = () => {
 
         {/* Mobile Navigation Drawer */}
         {mobileMenuOpen && (
-          <div className="md:hidden bg-white border-b border-slate-200 p-4 space-y-1 z-20">
-            {navItems.map((item) => (
-              <button
-                key={item.id}
-                type="button"
-                onClick={() => {
-                  setActiveTab(item.id);
-                  setMobileMenuOpen(false);
-                }}
-                className={`w-full flex items-center justify-between p-3 rounded-xl font-bold text-xs ${
-                  activeTab === item.id ? 'bg-slate-900 text-white' : 'text-slate-600'
-                }`}
+          <div className="md:hidden bg-white border-b border-slate-200 p-4 space-y-1.5 z-20 shadow-md animate-fade-in">
+            {navItems.map((item) => {
+              const Icon = item.icon;
+              const isActive = activeTab === item.id;
+              return (
+                <button
+                  key={item.id}
+                  type="button"
+                  onClick={() => {
+                    setActiveTab(item.id);
+                    setMobileMenuOpen(false);
+                  }}
+                  className={`w-full flex items-center justify-between p-3 rounded-xl font-bold text-xs transition ${
+                    isActive ? 'bg-slate-900 text-white shadow-sm' : 'text-slate-700 hover:bg-slate-100'
+                  }`}
+                >
+                  <div className="flex items-center gap-2.5">
+                    <Icon className="w-4 h-4" />
+                    <span>{item.label}</span>
+                  </div>
+                  {typeof item.badge === 'number' && (
+                    <span
+                      className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                        isActive ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-600'
+                      }`}
+                    >
+                      {item.badge}
+                    </span>
+                  )}
+                </button>
+              );
+            })}
+
+            <div className="pt-2 border-t border-slate-100 flex flex-col gap-1">
+              <Link
+                to="/courses"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full flex items-center justify-between p-3 rounded-xl font-semibold text-xs text-slate-700 hover:bg-slate-100"
               >
-                <span>{item.label}</span>
-                {typeof item.badge === 'number' && <span>{item.badge}</span>}
+                <div className="flex items-center gap-2.5">
+                  <ExternalLink className="w-4 h-4 text-slate-400" />
+                  <span>Lihat Web Siswa</span>
+                </div>
+              </Link>
+
+              <button
+                type="button"
+                onClick={handleLogout}
+                className="w-full flex items-center gap-2.5 p-3 rounded-xl font-semibold text-xs text-rose-600 hover:bg-rose-50"
+              >
+                <LogOut className="w-4 h-4" />
+                <span>Keluar</span>
               </button>
-            ))}
+            </div>
           </div>
         )}
 
         {/* Main Content Body */}
-        <main className="p-4 sm:p-8 max-w-7xl w-full mx-auto">
+        <main className="p-3 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto overflow-x-hidden">
           {/* Toast Alert */}
           {toastMessage && (
             <div

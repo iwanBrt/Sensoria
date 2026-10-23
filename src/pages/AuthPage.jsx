@@ -22,32 +22,16 @@ import {
 
 const SENSORY_MODES = [
   {
-    id: 'netra',
-    name: 'Tunanetra',
-    summary: 'Audio & Narasi Layar',
-    icon: Headphones,
-    audioSample: 'Mode Tunanetra aktif. Suara panduan akan selalu membimbing langkah belajarmu.',
-  },
-  {
-    id: 'kurang_awas',
-    name: 'Kurang Awas',
-    summary: 'Kontras Tinggi & Huruf Besar',
-    icon: Eye,
-    audioSample: 'Mode Kurang Awas aktif. Tampilan kontras tinggi siap membantu penglihatanmu.',
-  },
-  {
     id: 'rungu',
-    name: 'Tunarungu',
-    summary: 'Takarir CC & Bahasa Isyarat',
+    name: 'Tunarungu (Tuli)',
+    summary: 'Takarir Teks CC & JBI Bahasa Isyarat',
     icon: Ear,
-    audioSample: 'Mode Tunarungu aktif. Video dilengkapi teks takarir dan visual isyarat.',
   },
   {
     id: 'wicara',
-    name: 'Tunawicara',
-    summary: 'Navigasi Sentuh Bebas Bicara',
+    name: 'Tunawicara (Bisu)',
+    summary: '100% Interaksi Sentuh Tanpa Suara',
     icon: MousePointerClick,
-    audioSample: 'Mode Tunawicara aktif. Kamu dapat belajar mandiri dengan sentuhan santai.',
   },
 ];
 
@@ -79,7 +63,7 @@ const AuthPage = () => {
   const [contact, setContact] = useState('');
   const [password, setPassword] = useState('');
   const [school, setSchool] = useState('');
-  const [selectedSensory, setSelectedSensory] = useState('netra');
+  const [selectedSensory, setSelectedSensory] = useState('rungu');
   const [selectedAvatar, setSelectedAvatar] = useState('avatar-1');
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -290,7 +274,7 @@ const AuthPage = () => {
 
         {/* Main Card Container */}
         <div
-          className={`p-6 sm:p-8 rounded-2xl border transition shadow-sm ${
+          className={`p-4 sm:p-8 rounded-2xl border transition shadow-sm ${
             highContrast
               ? 'bg-black border-yellow-400'
               : 'bg-white border-slate-200/90'
@@ -345,12 +329,12 @@ const AuthPage = () => {
                 </div>
               </div>
 
-              {/* Mode Sensori Cepat */}
+              {/* Mode Sensori Cepat - Responsif & Tidak Terpotong */}
               <div>
                 <label className="block text-xs font-medium text-slate-700 mb-1.5">
                   Mode Belajar Sensori:
                 </label>
-                <div className="grid grid-cols-2 gap-1.5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   {SENSORY_MODES.map((m) => {
                     const Icon = m.icon;
                     const isSelected = selectedSensory === m.id;
@@ -359,14 +343,29 @@ const AuthPage = () => {
                         key={m.id}
                         type="button"
                         onClick={() => setSelectedSensory(m.id)}
-                        className={`p-2 rounded-lg border text-left text-xs transition flex items-center gap-2 ${
+                        className={`p-2.5 rounded-xl border text-left text-xs transition flex items-start gap-2.5 ${
                           isSelected
                             ? 'border-slate-900 bg-slate-900 text-white font-medium shadow-sm'
-                            : 'border-slate-200 bg-slate-50 text-slate-600 hover:bg-slate-100'
+                            : 'border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100'
                         }`}
                       >
-                        <Icon className="w-3.5 h-3.5 flex-shrink-0" />
-                        <span className="truncate">{m.name}</span>
+                        <div
+                          className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 mt-0.5 ${
+                            isSelected ? 'bg-white/20 text-white' : 'bg-slate-200 text-slate-700'
+                          }`}
+                        >
+                          <Icon className="w-3.5 h-3.5" />
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <span className="block font-bold leading-tight">{m.name}</span>
+                          <span
+                            className={`block text-[10px] leading-tight mt-0.5 ${
+                              isSelected ? 'text-white/80' : 'text-slate-500'
+                            }`}
+                          >
+                            {m.summary}
+                          </span>
+                        </div>
                       </button>
                     );
                   })}
@@ -442,7 +441,7 @@ const AuthPage = () => {
                         }`}
                       >
                         <div
-                          className={`w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 ${
+                          className={`w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5 ${
                             isSelected
                               ? 'bg-slate-900 text-white'
                               : 'bg-slate-100 text-slate-600'
@@ -452,30 +451,15 @@ const AuthPage = () => {
                         </div>
 
                         <div className="flex-1 min-w-0">
-                          <div className="flex items-center justify-between">
-                            <span className="text-xs font-semibold text-slate-900 truncate">
+                          <div className="flex items-center justify-between gap-1">
+                            <span className="text-xs font-bold text-slate-900 leading-tight">
                               {mode.name}
                             </span>
                             {isSelected && <Check className="w-3.5 h-3.5 text-slate-900 flex-shrink-0" />}
                           </div>
-                          <p className="text-[11px] text-slate-500 truncate mt-0.5">
+                          <p className="text-[11px] text-slate-500 mt-0.5 leading-snug">
                             {mode.summary}
                           </p>
-
-                          {mode.id === 'netra' && (
-                            <button
-                              type="button"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                handlePreviewVoice(mode.audioSample);
-                              }}
-                              className="mt-1 text-[10px] font-medium text-blue-600 hover:underline flex items-center gap-1"
-                              title="Dengarkan contoh suara"
-                            >
-                              <Volume2 className="w-3 h-3" />
-                              <span>Tes Suara</span>
-                            </button>
-                          )}
                         </div>
                       </div>
                     );
@@ -488,20 +472,20 @@ const AuthPage = () => {
                 <label className="block text-xs font-medium text-slate-700 mb-1.5">
                   Pilih Avatar Karakter:
                 </label>
-                <div className="flex items-center gap-2">
+                <div className="grid grid-cols-5 gap-1.5 sm:gap-2">
                   {AVATARS.map((av) => (
                     <button
                       key={av.id}
                       type="button"
                       onClick={() => setSelectedAvatar(av.id)}
-                      className={`flex-1 py-1.5 rounded-xl border transition flex flex-col items-center gap-1 ${
+                      className={`py-2 px-1 rounded-xl border transition flex flex-col items-center gap-1 ${
                         selectedAvatar === av.id
                           ? 'border-slate-900 bg-slate-50 ring-1 ring-slate-900'
                           : 'border-slate-200 bg-white hover:border-slate-300'
                       }`}
                     >
-                      <span className="text-base">{av.emoji}</span>
-                      <span className="text-[10px] font-medium text-slate-600">{av.label}</span>
+                      <span className="text-base sm:text-lg">{av.emoji}</span>
+                      <span className="text-[10px] font-medium text-slate-600 truncate w-full text-center">{av.label}</span>
                     </button>
                   ))}
                 </div>

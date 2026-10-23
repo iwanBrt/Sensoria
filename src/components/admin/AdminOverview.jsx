@@ -30,10 +30,8 @@ const AdminOverview = ({ stats, courses, onNavigateTab }) => {
 
   // Disability distribution for Donut Chart
   const disabilityStats = [
-    { name: 'Tunanetra (Audio)', count: 2, percent: 35, color: '#5b32f5' },
-    { name: 'Kurang Awas (Kontras)', count: 1, percent: 25, color: '#f97316' },
-    { name: 'Tunarungu (Takarir & JBI)', count: 1, percent: 25, color: '#10b981' },
-    { name: 'Tunawicara (Sentuh)', count: 1, percent: 15, color: '#eab308' },
+    { name: 'Tunarungu (Takarir CC & JBI)', count: 3, percent: 60, color: '#10b981' },
+    { name: 'Tunawicara (Navigasi Sentuh)', count: 2, percent: 40, color: '#5b32f5' },
   ];
 
   return (
@@ -170,7 +168,7 @@ const AdminOverview = ({ stats, courses, onNavigateTab }) => {
               <div className="absolute inset-x-0 top-1/2 border-b border-dashed border-slate-100" />
               <div className="absolute inset-x-0 bottom-7 border-b border-slate-200" />
 
-              <div className="h-44 flex items-end justify-between gap-2 sm:gap-3 px-1 relative z-10">
+              <div className="h-44 flex items-end justify-between gap-1 sm:gap-3 px-1 relative z-10">
                 {chartData.map((bar, i) => (
                   <div key={i} className="flex-1 flex flex-col items-center gap-1.5 h-full justify-end group">
                     {bar.tooltip && (

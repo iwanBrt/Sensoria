@@ -6,8 +6,6 @@ import { dbService } from '../services/dbService';
 import {
   BookOpen,
   Calculator,
-  Headphones,
-  Eye,
   Ear,
   MousePointerClick,
   ArrowRight,
@@ -28,9 +26,7 @@ const getCourseMedia = (course) => {
       thumbnail: 'https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?auto=format&fit=crop&w=800&q=80',
       duration: '20:45',
       highlights: {
-        netra: 'Deskripsi suara pelelehan gliserin dan takaran ekstrak lidah buaya',
         rungu: 'Takarir CC sinkron kata demi kata & video bahasa isyarat gerakan cetakan',
-        kurang_awas: 'Siluet warna kontras cetakan silikon agar penuangan presisi',
         wicara: 'Hitung modal & laba sabun dengan kalkulator sentuh tanpa suara',
       }
     };
@@ -40,9 +36,7 @@ const getCourseMedia = (course) => {
       thumbnail: 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=800&q=80',
       duration: '24:30',
       highlights: {
-        netra: 'Panduan audio gramasi tepung, mentega, dan durasi panggangan oven',
         rungu: 'Takarir teks per langkah dan video JBI untuk teknik mengaduk adonan',
-        kurang_awas: 'Font resep ekstra besar dan panduan visual loyang oven berdaya kontras tinggi',
         wicara: 'Simulasi harga toples kue kering dengan formula kalkulator sentuh',
       }
     };
@@ -52,9 +46,7 @@ const getCourseMedia = (course) => {
       thumbnail: 'https://images.unsplash.com/photo-1534349762230-e0cadf78f5da?auto=format&fit=crop&w=800&q=80',
       duration: '18:15',
       highlights: {
-        netra: 'Instruksi audio rabaan taktil ketebalan serat tali rami dan kerapatan spiral',
         rungu: 'Demonstrasi peraga isyarat BISINDO teknik memutar tali melingkar',
-        kurang_awas: 'Alas kerja kontras tajam memperjelas lingkar pola anyaman tatakan',
         wicara: 'Kalkulasi laba paket 4 tatakan dengan tombol sentuh interaktif',
       }
     };
@@ -63,9 +55,7 @@ const getCourseMedia = (course) => {
     thumbnail: 'https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=800&q=80',
     duration: '15:20',
     highlights: {
-      netra: 'Narasi suara deskriptif untuk takaran soy wax dan suhu lilin',
       rungu: 'Takarir CC teks sinkron & video penerjemah isyarat JBI BISINDO',
-      kurang_awas: 'Warna kontras tinggi dan garis tepi penanda sumbu lilin',
       wicara: 'Kalkulator modal lilin berbasis tombol sentuh tanpa suara',
     }
   };
@@ -98,16 +88,6 @@ const StudentDashboard = () => {
   if (!currentUser) return null;
 
   const profileBadgeMap = {
-    netra: {
-      label: 'Tunanetra (Mode Suara & Pembaca Layar)',
-      icon: Headphones,
-      color: 'bg-blue-100 text-blue-900 border-blue-300',
-    },
-    kurang_awas: {
-      label: 'Kurang Awas (Kontras Tinggi & Huruf Besar)',
-      icon: Eye,
-      color: 'bg-amber-100 text-amber-900 border-amber-300',
-    },
     rungu: {
       label: 'Tunarungu (Takarir CC & Video JBI)',
       icon: Ear,
@@ -120,7 +100,7 @@ const StudentDashboard = () => {
     },
   };
 
-  const currentBadge = profileBadgeMap[currentUser.sensoryProfile] || profileBadgeMap.netra;
+  const currentBadge = profileBadgeMap[currentUser.sensoryProfile] || profileBadgeMap.rungu;
   const ProfileIcon = currentBadge.icon;
 
   const handleSwitchProfile = (profileKey) => {
@@ -128,11 +108,59 @@ const StudentDashboard = () => {
   };
 
   return (
-    <div className="w-full py-8 sm:py-12">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Welcome Student Banner */}
+    <div className="w-full py-4 sm:py-8 md:py-12">
+      <div className="max-w-6xl mx-auto px-3 sm:px-6 lg:px-8">
+        {/* =============================================================== */}
+        {/* 1. MOBILE GREETING BAR (SIMPLE, COMPACT & NO HEAVY BLUE CARD) */}
+        {/* =============================================================== */}
         <div
-          className={`p-6 sm:p-8 rounded-3xl border-2 transition mb-8 ${
+          className={`sm:hidden mb-4 p-3 rounded-2xl border transition shadow-sm flex items-center justify-between gap-2.5 ${
+            highContrast
+              ? 'bg-black border-yellow-400 text-yellow-300'
+              : 'bg-white border-slate-200 text-slate-900'
+          }`}
+        >
+          <div className="min-w-0 flex-1">
+            <h1 className="text-sm font-extrabold truncate text-slate-900 dark:text-inherit">
+              Halo, {currentUser.name}! 👋
+            </h1>
+            <div className="flex items-center gap-1.5 mt-0.5">
+              <ProfileIcon className="w-3 h-3 text-blue-600 shrink-0" />
+              <span className="text-[10px] font-bold text-slate-600 truncate">
+                {currentBadge.label.split('(')[0].trim()}
+              </span>
+            </div>
+          </div>
+
+          {/* Compact Sensory Toggle */}
+          <div className="flex items-center gap-1 p-0.5 bg-slate-100 rounded-xl shrink-0">
+            {Object.keys(profileBadgeMap).map((key) => {
+              const isCur = currentUser.sensoryProfile === key;
+              return (
+                <button
+                  key={key}
+                  type="button"
+                  onClick={() => handleSwitchProfile(key)}
+                  className={`px-2 py-1 rounded-lg text-[10px] font-black uppercase transition ${
+                    isCur
+                      ? highContrast
+                        ? 'bg-yellow-400 text-black'
+                        : 'bg-slate-900 text-white shadow-xs'
+                      : 'text-slate-600 hover:text-slate-900'
+                  }`}
+                >
+                  {key}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* =============================================================== */}
+        {/* 2. TABLET/DESKTOP RICH BANNER */}
+        {/* =============================================================== */}
+        <div
+          className={`hidden sm:block p-6 sm:p-8 rounded-3xl border-2 transition mb-6 sm:mb-8 ${
             highContrast
               ? 'bg-black border-yellow-400 text-yellow-300'
               : 'bg-gradient-to-r from-blue-600 to-indigo-700 text-white shadow-lg'
@@ -148,25 +176,25 @@ const StudentDashboard = () => {
                       : 'bg-white/20 text-white backdrop-blur-sm'
                   }`}
                 >
-                  <ProfileIcon className="w-3.5 h-3.5" />
-                  <span>{currentBadge.label}</span>
+                  <ProfileIcon className="w-3.5 h-3.5 shrink-0" />
+                  <span className="leading-tight">{currentBadge.label}</span>
                 </span>
               </div>
 
-              <h1 className="text-2xl sm:text-4xl font-black">
+              <h1 className="text-xl sm:text-3xl md:text-4xl font-black">
                 Selamat Datang, {currentUser.name}!
               </h1>
-              <p className={`text-sm sm:text-base mt-1 max-w-xl ${highContrast ? 'text-yellow-200' : 'text-blue-100'}`}>
+              <p className={`text-xs sm:text-sm md:text-base mt-1 max-w-xl ${highContrast ? 'text-yellow-200' : 'text-blue-100'}`}>
                 Ruang belajarmu telah disesuaikan dengan kebutuhan sensori yang kamu pilih. Pilih materi vokasi di bawah untuk mulai berkreasi!
               </p>
             </div>
 
             {/* Quick Profile Switcher Buttons */}
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-1.5 shrink-0">
               <span className={`text-[11px] font-bold uppercase tracking-wider ${highContrast ? 'text-yellow-300' : 'text-blue-200'}`}>
                 Ubah Mode Sensori:
               </span>
-              <div className="flex flex-wrap gap-1.5">
+              <div className="flex flex-wrap gap-1.5 sm:gap-2">
                 {Object.keys(profileBadgeMap).map((key) => {
                   const item = profileBadgeMap[key];
                   const isCur = currentUser.sensoryProfile === key;
@@ -175,11 +203,11 @@ const StudentDashboard = () => {
                       key={key}
                       type="button"
                       onClick={() => handleSwitchProfile(key)}
-                      className={`px-2.5 py-1 rounded-lg text-xs font-bold transition border ${
+                      className={`px-3 py-1.5 rounded-xl text-xs font-bold transition border ${
                         isCur
                           ? highContrast
                             ? 'bg-yellow-400 text-black border-yellow-300'
-                            : 'bg-white text-blue-900 border-white'
+                            : 'bg-white text-blue-900 border-white shadow-sm'
                           : highContrast
                           ? 'border-yellow-400/40 text-yellow-300'
                           : 'border-white/30 text-white hover:bg-white/10'
@@ -195,45 +223,45 @@ const StudentDashboard = () => {
         </div>
 
         {/* Action Shortcuts */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-6 sm:mb-8">
           <Link
             to="/courses"
-            className={`p-5 rounded-2xl border-2 transition flex items-center justify-between ${
+            className={`p-3.5 sm:p-5 rounded-2xl border-2 transition flex items-center justify-between ${
               highContrast
                 ? 'bg-black border-yellow-400 text-yellow-300 hover:bg-yellow-950'
                 : 'bg-white border-slate-200 hover:border-blue-400 text-slate-900 shadow-sm'
             }`}
           >
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center">
+            <div className="flex items-center gap-3 min-w-0">
+              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center shrink-0">
                 <Layers className="w-5 h-5" />
               </div>
-              <div>
-                <h3 className="font-bold text-base">Katalog Lengkap Semua Kelas</h3>
-                <p className="text-xs text-slate-500">Lihat seluruh modul keterampilan vokasi mandiri</p>
+              <div className="min-w-0">
+                <h3 className="font-bold text-sm sm:text-base truncate">Katalog Lengkap Semua Kelas</h3>
+                <p className="text-[11px] sm:text-xs text-slate-500 truncate">Lihat seluruh modul keterampilan vokasi mandiri</p>
               </div>
             </div>
-            <ArrowRight className="w-5 h-5 text-slate-400" />
+            <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 text-slate-400 shrink-0 ml-2" />
           </Link>
 
           <Link
             to="/course?id=lilin-aromaterapi&tab=accounting"
-            className={`p-5 rounded-2xl border-2 transition flex items-center justify-between ${
+            className={`p-3.5 sm:p-5 rounded-2xl border-2 transition flex items-center justify-between ${
               highContrast
                 ? 'bg-black border-yellow-400 text-yellow-300 hover:bg-yellow-950'
                 : 'bg-white border-slate-200 hover:border-emerald-400 text-slate-900 shadow-sm'
             }`}
           >
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center">
+            <div className="flex items-center gap-3 min-w-0">
+              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
                 <Calculator className="w-5 h-5" />
               </div>
-              <div>
-                <h3 className="font-bold text-base">Kalkulator Untung & Modal</h3>
-                <p className="text-xs text-slate-500">Hitung keuntungan jualan karyamu sekarang</p>
+              <div className="min-w-0">
+                <h3 className="font-bold text-sm sm:text-base truncate">Kalkulator Harga Jual & AI</h3>
+                <p className="text-[11px] sm:text-xs text-slate-500 truncate">Hitung HPP modal & evaluasi cerdas Gemini</p>
               </div>
             </div>
-            <ArrowRight className="w-5 h-5 text-slate-400" />
+            <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 text-slate-400 shrink-0 ml-2" />
           </Link>
         </div>
 
@@ -352,10 +380,10 @@ const StudentDashboard = () => {
                     </div>
 
                     {/* Actions */}
-                    <div className="p-5 pt-0 border-t border-slate-100 dark:border-yellow-400/30 flex items-center justify-between gap-3">
+                    <div className="p-4 sm:p-5 pt-0 border-t border-slate-100 dark:border-yellow-400/30 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 sm:gap-3">
                       <Link
                         to={`/course?id=${course.id}`}
-                        className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-xs sm:text-sm shadow transition ${
+                        className={`inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm shadow transition ${
                           highContrast
                             ? 'bg-yellow-400 text-black hover:bg-yellow-300'
                             : 'bg-blue-600 hover:bg-blue-500 text-white'
@@ -367,11 +395,11 @@ const StudentDashboard = () => {
 
                       <Link
                         to={`/course?id=${course.id}&tab=accounting`}
-                        className={`text-xs font-bold underline px-2 py-1 ${
+                        className={`text-xs font-bold text-center underline px-2 py-1.5 ${
                           highContrast ? 'text-yellow-300' : 'text-slate-700 hover:text-blue-600'
                         }`}
                       >
-                        Kalkulator Untung →
+                        Kalkulator Harga Jual →
                       </Link>
                     </div>
                   </div>

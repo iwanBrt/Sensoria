@@ -21,13 +21,12 @@ const AdminStudents = ({ students, onSaveStudent, onDeleteStudent }) => {
   // Form states
   const [name, setName] = useState('');
   const [contact, setContact] = useState('');
-  const [sensoryProfile, setSensoryProfile] = useState('netra');
+  const [sensoryProfile, setSensoryProfile] = useState('rungu');
   const [school, setSchool] = useState('');
   const [notes, setNotes] = useState('');
 
   // Counts for each sensory profile
-  const netraCount = students.filter((s) => s.sensoryProfile === 'netra').length;
-  const kurangAwasCount = students.filter((s) => s.sensoryProfile === 'kurang_awas').length;
+  const totalCount = students.length;
   const runguCount = students.filter((s) => s.sensoryProfile === 'rungu').length;
   const wicaraCount = students.filter((s) => s.sensoryProfile === 'wicara').length;
 
@@ -46,8 +45,6 @@ const AdminStudents = ({ students, onSaveStudent, onDeleteStudent }) => {
     if (!name.trim()) return;
 
     const profileLabels = {
-      netra: 'Tunanetra (Mode Suara)',
-      kurang_awas: 'Kurang Awas (Kontras Tinggi)',
       rungu: 'Tunarungu (Takarir CC & JBI)',
       wicara: 'Tunawicara (Navigasi Sentuh)',
     };
@@ -57,7 +54,7 @@ const AdminStudents = ({ students, onSaveStudent, onDeleteStudent }) => {
       name: name.trim(),
       contact: contact.trim() || '-',
       sensoryProfile,
-      profileLabel: profileLabels[sensoryProfile],
+      profileLabel: profileLabels[sensoryProfile] || 'Tunarungu',
       school: school.trim() || 'SLB Mandiri',
       progressSummary: notes.trim() || 'Mendaftar modul baru via admin',
       lastActive: 'Baru saja',
@@ -81,43 +78,26 @@ const AdminStudents = ({ students, onSaveStudent, onDeleteStudent }) => {
         </div>
       </div>
 
-      {/* 2. TOP 4 COMPACT SUMMARY CARDS */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-        {/* Card 1: Blue Stripe (Tunanetra) */}
+      {/* 2. TOP 3 COMPACT SUMMARY CARDS */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        {/* Card 1: All Students */}
         <div
-          onClick={() => setActiveFilter(activeFilter === 'netra' ? 'all' : 'netra')}
+          onClick={() => setActiveFilter('all')}
           className={`rounded-xl bg-white border shadow-sm overflow-hidden cursor-pointer transition hover:border-slate-300 ${
-            activeFilter === 'netra' ? 'border-[#5b32f5] ring-1 ring-[#5b32f5]' : 'border-slate-200/80'
+            activeFilter === 'all' ? 'border-[#5b32f5] ring-1 ring-[#5b32f5]' : 'border-slate-200/80'
           }`}
         >
           <div className="h-1 bg-[#5b32f5]" />
           <div className="p-3.5">
-            <span className="text-xs font-medium text-slate-500">Tunanetra</span>
+            <span className="text-xs font-medium text-slate-500">Semua Siswa Terdaftar</span>
             <div className="flex items-baseline gap-2 mt-1">
-              <span className="text-2xl font-bold text-slate-900">{netraCount}</span>
-              <span className="text-[10px] font-medium text-slate-400">Audio TTS</span>
+              <span className="text-2xl font-bold text-slate-900">{totalCount}</span>
+              <span className="text-[10px] font-medium text-slate-400">Total Akun</span>
             </div>
           </div>
         </div>
 
-        {/* Card 2: Orange Stripe (Kurang Awas) */}
-        <div
-          onClick={() => setActiveFilter(activeFilter === 'kurang_awas' ? 'all' : 'kurang_awas')}
-          className={`rounded-xl bg-white border shadow-sm overflow-hidden cursor-pointer transition hover:border-slate-300 ${
-            activeFilter === 'kurang_awas' ? 'border-orange-500 ring-1 ring-orange-500' : 'border-slate-200/80'
-          }`}
-        >
-          <div className="h-1 bg-orange-500" />
-          <div className="p-3.5">
-            <span className="text-xs font-medium text-slate-500">Kurang Awas</span>
-            <div className="flex items-baseline gap-2 mt-1">
-              <span className="text-2xl font-bold text-slate-900">{kurangAwasCount}</span>
-              <span className="text-[10px] font-medium text-slate-400">Kontras</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Card 3: Yellow Stripe (Tunarungu) */}
+        {/* Card 2: Tunarungu */}
         <div
           onClick={() => setActiveFilter(activeFilter === 'rungu' ? 'all' : 'rungu')}
           className={`rounded-xl bg-white border shadow-sm overflow-hidden cursor-pointer transition hover:border-slate-300 ${
@@ -129,12 +109,12 @@ const AdminStudents = ({ students, onSaveStudent, onDeleteStudent }) => {
             <span className="text-xs font-medium text-slate-500">Tunarungu</span>
             <div className="flex items-baseline gap-2 mt-1">
               <span className="text-2xl font-bold text-slate-900">{runguCount}</span>
-              <span className="text-[10px] font-medium text-slate-400">CC & JBI</span>
+              <span className="text-[10px] font-medium text-slate-400">Takarir CC & JBI</span>
             </div>
           </div>
         </div>
 
-        {/* Card 4: Green Stripe (Tunawicara) */}
+        {/* Card 3: Tunawicara */}
         <div
           onClick={() => setActiveFilter(activeFilter === 'wicara' ? 'all' : 'wicara')}
           className={`rounded-xl bg-white border shadow-sm overflow-hidden cursor-pointer transition hover:border-slate-300 ${
@@ -146,7 +126,7 @@ const AdminStudents = ({ students, onSaveStudent, onDeleteStudent }) => {
             <span className="text-xs font-medium text-slate-500">Tunawicara</span>
             <div className="flex items-baseline gap-2 mt-1">
               <span className="text-2xl font-bold text-slate-900">{wicaraCount}</span>
-              <span className="text-[10px] font-medium text-slate-400">Sentuh</span>
+              <span className="text-[10px] font-medium text-slate-400">Navigasi Sentuh</span>
             </div>
           </div>
         </div>
@@ -245,8 +225,6 @@ const AdminStudents = ({ students, onSaveStudent, onDeleteStudent }) => {
                 onChange={(e) => setSensoryProfile(e.target.value)}
                 className="w-full px-3 py-1.5 rounded-lg bg-slate-50 border border-slate-200 text-xs focus:bg-white focus:outline-none focus:border-slate-400"
               >
-                <option value="netra">Tunanetra (Mode Suara)</option>
-                <option value="kurang_awas">Kurang Awas (Kontras Tinggi)</option>
                 <option value="rungu">Tunarungu (Takarir CC & JBI)</option>
                 <option value="wicara">Tunawicara (Navigasi Sentuh)</option>
               </select>
@@ -299,8 +277,14 @@ const AdminStudents = ({ students, onSaveStudent, onDeleteStudent }) => {
 
       {/* 5. MINIMAL DATA TABLE */}
       <div className="rounded-xl bg-white border border-slate-200/80 shadow-sm overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse">
+        {/* Mobile scroll indicator */}
+        <div className="sm:hidden px-3 py-1.5 bg-slate-50 text-[10px] font-semibold text-slate-500 border-b border-slate-200/60 flex items-center justify-between">
+          <span>Daftar Siswa ({filteredStudents.length})</span>
+          <span className="text-blue-600">Geser ke kanan →</span>
+        </div>
+
+        <div className="overflow-x-auto w-full">
+          <table className="w-full text-left border-collapse min-w-[540px]">
             <thead>
               <tr className="border-b border-slate-200/80 text-[11px] font-semibold text-slate-500 bg-slate-50/70">
                 <th className="py-2.5 px-3">Nama Siswa</th>
@@ -322,13 +306,11 @@ const AdminStudents = ({ students, onSaveStudent, onDeleteStudent }) => {
               ) : (
                 filteredStudents.map((std, idx) => {
                   const badgeMap = {
-                    netra: { bg: 'bg-indigo-50', text: 'text-indigo-700', border: 'border-indigo-100', label: 'Tunanetra' },
-                    kurang_awas: { bg: 'bg-orange-50', text: 'text-orange-700', border: 'border-orange-100', label: 'Kurang Awas' },
                     rungu: { bg: 'bg-amber-50', text: 'text-amber-800', border: 'border-amber-100', label: 'Tunarungu' },
                     wicara: { bg: 'bg-emerald-50', text: 'text-emerald-700', border: 'border-emerald-100', label: 'Tunawicara' },
                   };
 
-                  const badge = badgeMap[std.sensoryProfile] || badgeMap.netra;
+                  const badge = badgeMap[std.sensoryProfile] || badgeMap.rungu;
 
                   return (
                     <tr key={std.id} className="hover:bg-slate-50/60 transition">

@@ -26,7 +26,7 @@ import {
 } from 'lucide-react';
 
 const AdminAccessibility = ({ courses, onSaveCourse }) => {
-  const { highContrast, speak, announce } = useA11y();
+  const { highContrast, announce } = useA11y();
   const [selectedCourseId, setSelectedCourseId] = useState(courses[0]?.id || '');
   const [selectedStepIndex, setSelectedStepIndex] = useState(0);
   const [saveAlert, setSaveAlert] = useState(false);
@@ -553,45 +553,50 @@ const AdminAccessibility = ({ courses, onSaveCourse }) => {
           </form>
         </div>
 
-        {/* Panel B: Audio Description (Untuk Tunanetra) */}
-        <div className="p-6 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-4">
-          <div className="flex items-center justify-between">
+        {/* Panel B: Panduan & Kalibrasi Aksesibilitas Tunarungu (CC & JBI) */}
+        <div className="p-6 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-4 flex flex-col justify-between">
+          <div className="space-y-4">
             <div>
               <h3 className="font-extrabold text-sm text-slate-900 flex items-center gap-2">
-                <Volume2 className="w-4 h-4 text-blue-600" />
-                <span>Deskripsi Audio (Audiodeskripsi)</span>
+                <UserCheck className="w-4 h-4 text-emerald-600" />
+                <span>Standar Takarir CC & Penerjemah JBI (Tunarungu)</span>
               </h3>
               <p className="text-[11px] text-slate-400">
-                Narasi visual untuk menjelaskan apa yang terjadi di layar bagi siswa Tunanetra
+                Panduan kualitas takarir teks dan juru bahasa isyarat untuk kenyamanan siswa Tuli
               </p>
             </div>
 
-            <button
-              type="button"
-              onClick={() => speak(audioDescription)}
-              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-blue-50 text-blue-700 text-xs font-bold border border-blue-200 hover:bg-blue-100 transition"
-              title="Dengarkan pembacaan teks"
-            >
-              <Volume2 className="w-3.5 h-3.5" />
-              <span>Uji Suara</span>
-            </button>
+            <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2.5 text-xs text-slate-700">
+              <div className="font-bold text-slate-900 flex items-center gap-2">
+                <Check className="w-4 h-4 text-emerald-600" />
+                <span>Prinsip Takarir Ramah Tunarungu:</span>
+              </div>
+              <ul className="space-y-1.5 list-disc list-inside text-[11px] leading-relaxed text-slate-600">
+                <li><strong>Durasi Tayang:</strong> Minimal 1.5 detik per baris kalimat pendek agar terbaca dengan nyaman.</li>
+                <li><strong>Panjang Kalimat:</strong> Maksimal 35–42 karakter per baris untuk menghindari tutupan video.</li>
+                <li><strong>Bahasa Jelas:</strong> Gunakan padanan kata baku bahasa Indonesia yang mudah dipahami.</li>
+                <li><strong>Sinkronisasi JBI:</strong> Teks CC otomatis diselaraskan dengan gerakan tangan penerjemah BISINDO di jendela PiP.</li>
+              </ul>
+            </div>
+
+            <div className="p-4 rounded-2xl bg-amber-50 border border-amber-200 text-amber-950 text-xs space-y-1.5">
+              <span className="font-bold flex items-center gap-1.5">
+                <Subtitles className="w-4 h-4 text-amber-600" />
+                Pratinjau Tampilan Takarir di Layar Siswa:
+              </span>
+              <div className="mt-2 p-3 rounded-xl bg-black/90 text-yellow-300 border border-amber-400/60 font-extrabold text-center text-xs sm:text-sm">
+                "{subtitles[0]?.text || 'Contoh: Selamat datang di kelas vokasi SENSORIA.'}"
+              </div>
+            </div>
           </div>
 
-          <textarea
-            rows="6"
-            value={audioDescription}
-            onChange={(e) => setAudioDescription(e.target.value)}
-            placeholder="Contoh: Instruktur meletakkan wadah lilin kedelai di atas meja kerja. Tangan kiri memegang toples kaca dan tangan kanan menata sumbu katun tepat di tengah..."
-            className="w-full p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs font-medium text-slate-800 leading-relaxed focus:outline-none focus:border-indigo-500"
-          />
-
-          <div className="p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-950 text-xs space-y-1">
+          <div className="p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-950 text-xs">
             <span className="font-bold flex items-center gap-1.5">
               <UserCheck className="w-4 h-4 text-emerald-600" />
-              Aksesibilitas Ganda (Tunanetra & Tunarungu)
+              100% Aksesibel Tunarungu & Tunawicara
             </span>
-            <p className="text-[11px] opacity-80 leading-relaxed">
-              Dengan melengkapi takarir subtitle dan deskripsi audio di sini, satu video tutorial yang Anda unggah langsung ramah diakses oleh 100% ragam disabilitas secara bersamaan.
+            <p className="text-[11px] opacity-80 leading-relaxed mt-1">
+              Dengan melengkapi takarir subtitle dan modul interaktif sentuh, modul pelatihan dapat diikuti mandiri secara tuntas oleh siswa tanpa kendala vokal maupun dengar.
             </p>
           </div>
         </div>

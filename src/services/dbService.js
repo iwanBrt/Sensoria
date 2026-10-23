@@ -6,8 +6,8 @@ const initialStudents = [
   {
     id: 'std-001',
     name: 'Budi Santoso',
-    sensoryProfile: 'netra',
-    profileLabel: 'Tunanetra (Mode Suara)',
+    sensoryProfile: 'rungu',
+    profileLabel: 'Tunarungu (Takarir CC & Video JBI)',
     school: 'SLB Negeri 1 Pembina',
     progressSummary: 'Menyelesaikan 3 langkah Lilin Aromaterapi',
     lastActive: 'Hari ini',
@@ -15,9 +15,9 @@ const initialStudents = [
   {
     id: 'std-002',
     name: 'Siti Rahmawati',
-    sensoryProfile: 'kurang_awas',
-    profileLabel: 'Kurang Awas (Kontras Tinggi & Font Besar)',
-    school: 'SLB B-C Inklusif',
+    sensoryProfile: 'wicara',
+    profileLabel: 'Tunawicara (Navigasi Sentuh Murni)',
+    school: 'SLB Inklusif Mandiri',
     progressSummary: 'Menyelesaikan modul Sabun Herbal & Kalkulator Untung',
     lastActive: 'Kemarin',
   },
@@ -318,7 +318,7 @@ export const dbService = {
         await supabase.from('students').upsert({
           id: student.id,
           name: student.name,
-          sensory_profile: student.sensoryProfile || student.sensory_profile || 'netra',
+          sensory_profile: student.sensoryProfile || student.sensory_profile || 'rungu',
           profile_label: student.profileLabel || student.profile_label || '',
           school: student.school || '',
           progress_summary: student.progressSummary || student.progress_summary || '',

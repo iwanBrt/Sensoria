@@ -10,8 +10,6 @@ import {
   ArrowRight,
   Play,
   Clock,
-  Headphones,
-  Eye,
   Ear,
   MousePointerClick,
   CheckCircle2,
@@ -29,9 +27,7 @@ const getCourseMedia = (course) => {
       thumbnail: 'https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?auto=format&fit=crop&w=800&q=80',
       duration: '20:45',
       highlights: {
-        netra: 'Deskripsi suara pelelehan gliserin dan takaran ekstrak lidah buaya',
         rungu: 'Takarir CC sinkron kata demi kata & video bahasa isyarat gerakan cetakan',
-        kurang_awas: 'Siluet warna kontras cetakan silikon agar penuangan presisi',
         wicara: 'Hitung modal & laba sabun dengan kalkulator sentuh tanpa suara',
       }
     };
@@ -41,9 +37,7 @@ const getCourseMedia = (course) => {
       thumbnail: 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=800&q=80',
       duration: '24:30',
       highlights: {
-        netra: 'Panduan audio gramasi tepung, mentega, dan durasi panggangan oven',
         rungu: 'Takarir teks per langkah dan video JBI untuk teknik mengaduk adonan',
-        kurang_awas: 'Font resep ekstra besar dan panduan visual loyang oven berdaya kontras tinggi',
         wicara: 'Simulasi harga toples kue kering dengan formula kalkulator sentuh',
       }
     };
@@ -53,9 +47,7 @@ const getCourseMedia = (course) => {
       thumbnail: 'https://images.unsplash.com/photo-1534349762230-e0cadf78f5da?auto=format&fit=crop&w=800&q=80',
       duration: '18:15',
       highlights: {
-        netra: 'Instruksi audio rabaan taktil ketebalan serat tali rami dan kerapatan spiral',
         rungu: 'Demonstrasi peraga isyarat BISINDO teknik memutar tali melingkar',
-        kurang_awas: 'Alas kerja kontras tajam memperjelas lingkar pola anyaman tatakan',
         wicara: 'Kalkulasi laba paket 4 tatakan dengan tombol sentuh interaktif',
       }
     };
@@ -64,9 +56,7 @@ const getCourseMedia = (course) => {
     thumbnail: 'https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=800&q=80',
     duration: '15:20',
     highlights: {
-      netra: 'Narasi suara deskriptif untuk takaran soy wax dan suhu lilin',
       rungu: 'Takarir CC teks sinkron & video penerjemah isyarat JBI BISINDO',
-      kurang_awas: 'Warna kontras tinggi dan garis tepi penanda sumbu lilin',
       wicara: 'Kalkulator modal lilin berbasis tombol sentuh tanpa suara',
     }
   };
@@ -85,9 +75,7 @@ const CourseCatalog = () => {
   const categories = ['Semua', 'Kriya & Kerajinan', 'Kriya & Sanitasi', 'Tata Boga & Kuliner', 'Kriya Tradisional'];
 
   const sensoryOptions = [
-    { key: 'all', label: 'Semua Ragam Disabilitas', icon: Sparkles },
-    { key: 'netra', label: 'Tunanetra (Audio Narasi)', icon: Headphones },
-    { key: 'kurang_awas', label: 'Kurang Awas (Kontras Tinggi)', icon: Eye },
+    { key: 'all', label: 'Semua Ragam (Rungu & Wicara)', icon: Sparkles },
     { key: 'rungu', label: 'Tunarungu (Takarir CC & JBI)', icon: Ear },
     { key: 'wicara', label: 'Tunawicara (Navigasi Sentuh)', icon: MousePointerClick },
   ];
@@ -108,12 +96,8 @@ const CourseCatalog = () => {
       (course.description && course.description.toLowerCase().includes(searchQuery.toLowerCase()));
     
     let matchSensory = true;
-    if (selectedSensoryFilter === 'netra') {
-      matchSensory = Boolean(course.sensoryHighlights?.netra || course.steps?.some(s => s.audioDescription));
-    } else if (selectedSensoryFilter === 'rungu') {
+    if (selectedSensoryFilter === 'rungu') {
       matchSensory = Boolean(course.sensoryHighlights?.rungu || course.steps?.some(s => s.subtitles?.length));
-    } else if (selectedSensoryFilter === 'kurang_awas') {
-      matchSensory = Boolean(course.sensoryHighlights?.kurang_awas);
     } else if (selectedSensoryFilter === 'wicara') {
       matchSensory = Boolean(course.sensoryHighlights?.wicara);
     }
@@ -122,30 +106,10 @@ const CourseCatalog = () => {
   });
 
   return (
-    <div className="w-full py-8 sm:py-12">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="w-full py-6 sm:py-10 md:py-12">
+      <div className="max-w-6xl mx-auto px-3 sm:px-6 lg:px-8">
         {/* Title & Description */}
         <div className="mb-6">
-          <div className="flex items-center gap-2 mb-2">
-            <span
-              className={`text-xs font-black uppercase tracking-wider px-3 py-1 rounded-full inline-block ${
-                highContrast ? 'bg-yellow-400 text-black' : 'bg-blue-100 text-blue-900'
-              }`}
-            >
-              Katalog Kelas Vokasi Video Adaptif
-            </span>
-            <span
-              className={`text-xs font-bold px-3 py-1 rounded-full border inline-flex items-center gap-1.5 ${
-                highContrast
-                  ? 'border-yellow-400 text-yellow-300'
-                  : 'bg-emerald-50 text-emerald-700 border-emerald-200'
-              }`}
-            >
-              <CheckCircle2 className="w-3.5 h-3.5" />
-              <span>100% Inklusif 4 Ragam Sensori</span>
-            </span>
-          </div>
-
           <h1
             className={`text-2xl sm:text-4xl font-black ${
               highContrast ? 'text-yellow-400' : 'text-slate-900'
@@ -154,7 +118,7 @@ const CourseCatalog = () => {
             Pilihan Keterampilan Mandiri
           </h1>
           <p className={`text-base sm:text-lg mt-2 max-w-3xl ${highContrast ? 'text-yellow-200' : 'text-slate-600'}`}>
-            Tonton video tutorial keterampilan vokasi dengan pratinjau cuplikan visual. Setiap materi terkalibrasi khusus dengan Takarir CC, JBI Isyarat, Deskripsi Audio Tunanetra, dan Kalkulator Usaha.
+            Tonton video tutorial keterampilan vokasi dengan pratinjau cuplikan visual. Setiap materi terkalibrasi khusus dengan Takarir CC, JBI Isyarat BISINDO, dan Kalkulator Harga Jual Cerdas.
           </p>
         </div>
 
@@ -173,8 +137,6 @@ const CourseCatalog = () => {
                   highContrast ? 'bg-yellow-400 text-black' : 'bg-blue-600 text-white'
                 }`}
               >
-                {currentUser.sensoryProfile === 'netra' && <Headphones className="w-5 h-5" />}
-                {currentUser.sensoryProfile === 'kurang_awas' && <Eye className="w-5 h-5" />}
                 {currentUser.sensoryProfile === 'rungu' && <Ear className="w-5 h-5" />}
                 {currentUser.sensoryProfile === 'wicara' && <MousePointerClick className="w-5 h-5" />}
               </div>
@@ -183,8 +145,6 @@ const CourseCatalog = () => {
                   Profil Peserta: {currentUser.name}
                 </p>
                 <p className="text-sm font-bold mt-0.5">
-                  {currentUser.sensoryProfile === 'netra' && 'Mode Tunanetra Aktif: Narasi suara adegan video & pembaca layar siap memandu.'}
-                  {currentUser.sensoryProfile === 'kurang_awas' && 'Mode Kurang Awas Aktif: Tampilan kontras tinggi & perbesaran teks siap memandu.'}
                   {currentUser.sensoryProfile === 'rungu' && 'Mode Tunarungu Aktif: Seluruh video otomatis menampilkan Takarir CC & Juru Bahasa Isyarat JBI.'}
                   {currentUser.sensoryProfile === 'wicara' && 'Mode Tunawicara Aktif: Navigasi mandiri dengan sentuhan tanpa membutuhkan input vokal.'}
                 </p>
@@ -263,7 +223,7 @@ const CourseCatalog = () => {
           </div>
 
           {/* Search Box */}
-          <div className="relative min-w-[260px]">
+          <div className="relative w-full md:w-auto md:min-w-[260px]">
             <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
             <input
               type="text"
@@ -426,17 +386,6 @@ const CourseCatalog = () => {
                             className={`text-[11px] font-bold px-2 py-0.5 rounded-md border flex items-center gap-1 ${
                               highContrast
                                 ? 'border-yellow-400 text-yellow-300'
-                                : 'bg-blue-50 text-blue-800 border-blue-200'
-                            }`}
-                          >
-                            <Headphones className="w-3 h-3 text-blue-500" />
-                            <span>Audio Narasi (Netra)</span>
-                          </span>
-
-                          <span
-                            className={`text-[11px] font-bold px-2 py-0.5 rounded-md border flex items-center gap-1 ${
-                              highContrast
-                                ? 'border-yellow-400 text-yellow-300'
                                 : 'bg-emerald-50 text-emerald-800 border-emerald-200'
                             }`}
                           >
@@ -459,17 +408,6 @@ const CourseCatalog = () => {
                             className={`text-[11px] font-bold px-2 py-0.5 rounded-md border flex items-center gap-1 ${
                               highContrast
                                 ? 'border-yellow-400 text-yellow-300'
-                                : 'bg-amber-50 text-amber-800 border-amber-200'
-                            }`}
-                          >
-                            <Eye className="w-3 h-3 text-amber-600" />
-                            <span>Kontras Tinggi (Awas)</span>
-                          </span>
-
-                          <span
-                            className={`text-[11px] font-bold px-2 py-0.5 rounded-md border flex items-center gap-1 ${
-                              highContrast
-                                ? 'border-yellow-400 text-yellow-300'
                                 : 'bg-indigo-50 text-indigo-800 border-indigo-200'
                             }`}
                           >
@@ -482,32 +420,32 @@ const CourseCatalog = () => {
                   </div>
 
                   {/* ACTION BUTTONS */}
-                  <div className="p-5 sm:p-6 pt-0 border-t border-slate-100 dark:border-yellow-400/30 flex flex-wrap items-center justify-between gap-3">
+                  <div className="p-4 sm:p-6 pt-0 border-t border-slate-100 dark:border-yellow-400/30 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5">
                     <Link
                       to={`/course?id=${course.id}`}
-                      className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm shadow-sm transition active:scale-95 ${
+                      className={`inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm shadow-sm transition active:scale-95 flex-1 ${
                         highContrast
                           ? 'bg-yellow-400 text-black hover:bg-yellow-300'
                           : 'bg-blue-600 hover:bg-blue-500 text-white'
                       }`}
                       aria-label={`Tonton video materi ${course.title}`}
                     >
-                      <Play className="w-4 h-4 fill-current" aria-hidden="true" />
+                      <Play className="w-4 h-4 fill-current shrink-0" aria-hidden="true" />
                       <span>Tonton Video Tutorial</span>
-                      <ArrowRight className="w-4 h-4" aria-hidden="true" />
+                      <ArrowRight className="w-4 h-4 shrink-0" aria-hidden="true" />
                     </Link>
 
                     <Link
                       to={`/course?id=${course.id}&tab=accounting`}
-                      className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold border transition ${
+                      className={`inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold border transition shrink-0 ${
                         highContrast
                           ? 'border-yellow-400 text-yellow-300 hover:bg-yellow-950'
                           : 'border-slate-300 text-slate-700 hover:bg-slate-50'
                       }`}
-                      aria-label={`Hitung keuntungan untuk ${course.title}`}
+                      aria-label={`Hitung harga jual untuk ${course.title}`}
                     >
-                      <Calculator className="w-4 h-4" aria-hidden="true" />
-                      <span>Hitung Modal & Untung</span>
+                      <Calculator className="w-4 h-4 shrink-0" aria-hidden="true" />
+                      <span>Hitung Harga Jual</span>
                     </Link>
                   </div>
                 </div>
@@ -544,7 +482,7 @@ const CourseCatalog = () => {
                     {activeModalCourse.title}
                   </h3>
                   <p className="text-xs sm:text-sm text-slate-500 mt-1">
-                    Bagaimana konten video tutorial ini disesuaikan dengan setiap ragam tuna:
+                    Bagaimana konten video tutorial ini disesuaikan dengan kebutuhan Tunarungu dan Tunawicara:
                   </p>
                 </div>
                 <button
@@ -561,49 +499,9 @@ const CourseCatalog = () => {
                 </button>
               </div>
 
-              {/* 4 Cards for each Disability */}
+              {/* 2 Cards for Tunarungu & Tunawicara */}
               <div className="space-y-3.5 my-6 text-xs sm:text-sm">
-                {/* 1. Tunanetra */}
-                <div
-                  className={`p-4 rounded-2xl border ${
-                    highContrast
-                      ? 'border-yellow-400/60 bg-yellow-950/20'
-                      : 'border-blue-200 bg-blue-50/60'
-                  }`}
-                >
-                  <div className="flex items-center gap-2 mb-1.5 font-black text-blue-800 dark:text-yellow-300">
-                    <Headphones className="w-4 h-4 text-blue-600" />
-                    <span>1. Tunanetra (Buta Total / Gangguan Penglihatan Berat)</span>
-                  </div>
-                  <p className="text-slate-700 dark:text-yellow-200 leading-relaxed">
-                    <strong>Penyesuaian Konten:</strong> {activeModalCourse.sensoryHighlights?.netra || 'Tiap adegan video memiliki deskripsi audio terperinci yang membacakan takaran bahan, suara instruktur, dan arahan tangan instruktur.'}
-                  </p>
-                  <div className="mt-2 text-[11px] text-slate-500 dark:text-yellow-400/80">
-                    ✓ Web Speech API narasi otomatis • Dukungan pembaca layar NVDA/TalkBack • Navigasi tombol keyboard (Tab/Enter).
-                  </div>
-                </div>
-
-                {/* 2. Kurang Awas */}
-                <div
-                  className={`p-4 rounded-2xl border ${
-                    highContrast
-                      ? 'border-yellow-400/60 bg-yellow-950/20'
-                      : 'border-amber-200 bg-amber-50/60'
-                  }`}
-                >
-                  <div className="flex items-center gap-2 mb-1.5 font-black text-amber-800 dark:text-yellow-300">
-                    <Eye className="w-4 h-4 text-amber-600" />
-                    <span>2. Kurang Awas (Low Vision)</span>
-                  </div>
-                  <p className="text-slate-700 dark:text-yellow-200 leading-relaxed">
-                    <strong>Penyesuaian Konten:</strong> {activeModalCourse.sensoryHighlights?.kurang_awas || 'Visualisasi dilengkapi kontras warna tinggi, pembesaran teks resep, dan garis penanda objek kerja yang tajam.'}
-                  </p>
-                  <div className="mt-2 text-[11px] text-slate-500 dark:text-yellow-400/80">
-                    ✓ Rasio kontras 7:1 (WCAG AAA) • Pengatur ukuran font 100%-150% • Border penanda fokus tebal.
-                  </div>
-                </div>
-
-                {/* 3. Tunarungu */}
+                {/* 1. Tunarungu */}
                 <div
                   className={`p-4 rounded-2xl border ${
                     highContrast
@@ -613,7 +511,7 @@ const CourseCatalog = () => {
                 >
                   <div className="flex items-center gap-2 mb-1.5 font-black text-emerald-800 dark:text-yellow-300">
                     <Ear className="w-4 h-4 text-emerald-600" />
-                    <span>3. Tunarungu (Tuli / Gangguan Pendengaran)</span>
+                    <span>1. Tunarungu (Tuli / Gangguan Pendengaran)</span>
                   </div>
                   <p className="text-slate-700 dark:text-yellow-200 leading-relaxed">
                     <strong>Penyesuaian Konten:</strong> {activeModalCourse.sensoryHighlights?.rungu || 'Seluruh ucapan instruktur diterjemahkan ke Takarir Teks (Closed Caption) sinkron per detik, didampingi video Juru Bahasa Isyarat (JBI BISINDO) di jendela PiP.'}
@@ -623,7 +521,7 @@ const CourseCatalog = () => {
                   </div>
                 </div>
 
-                {/* 4. Tunawicara */}
+                {/* 2. Tunawicara */}
                 <div
                   className={`p-4 rounded-2xl border ${
                     highContrast
@@ -633,7 +531,7 @@ const CourseCatalog = () => {
                 >
                   <div className="flex items-center gap-2 mb-1.5 font-black text-purple-800 dark:text-yellow-300">
                     <MousePointerClick className="w-4 h-4 text-purple-600" />
-                    <span>4. Tunawicara (Gangguan Bicara)</span>
+                    <span>2. Tunawicara (Gangguan Bicara)</span>
                   </div>
                   <p className="text-slate-700 dark:text-yellow-200 leading-relaxed">
                     <strong>Penyesuaian Konten:</strong> {activeModalCourse.sensoryHighlights?.wicara || 'Seluruh alur belajar dan kalkulator keuangan berbasis sentuhan murni tanpa tes atau input suara.'}

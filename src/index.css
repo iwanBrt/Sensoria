@@ -19,9 +19,17 @@
     font-size: 150% !important;
   }
 
+  html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
   body {
     font-family: 'Atkinson Hyperlegible', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
     line-height: 1.6;
+    overflow-x: hidden;
   }
 
   /* Accessibility focus ring: never hide outlines on keyboard navigation */

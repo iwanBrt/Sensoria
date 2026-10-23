@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { A11yProvider } from './context/A11yContext';
 import { AuthProvider } from './context/AuthContext';
-import A11yToolbar from './components/layout/A11yToolbar';
 import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
 import LandingPage from './pages/LandingPage';
@@ -17,15 +16,12 @@ function App() {
     <A11yProvider>
       <AuthProvider>
         <Router>
-          <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 transition-colors">
-            {/* Global Accessibility Toolbar */}
-            <A11yToolbar />
-
+          <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 transition-colors w-full max-w-full overflow-x-hidden">
             {/* Accessible Header with role-based navigation */}
             <Header />
 
             {/* Main Landmark for Screen Readers & Skip Links */}
-            <main id="main-content" tabIndex="-1" className="flex-1 focus:outline-none">
+            <main id="main-content" tabIndex="-1" className="flex-1 focus:outline-none w-full max-w-full overflow-x-hidden">
               <Routes>
                 {/* 1. Public Landing Page */}
                 <Route path="/" element={<LandingPage />} />

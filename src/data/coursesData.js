@@ -10,12 +10,10 @@ export const initialCourses = [
     defaultModal: 15000,
     defaultPrice: 35000,
     description: "Keterampilan membuat lilin kedelai ramah lingkungan dengan wangi minyak aromaterapi yang menenangkan.",
-    sensoryFeatures: ["audio_desc", "subtitles", "jbi", "high_contrast", "touch_ready"],
+    sensoryFeatures: ["subtitles", "jbi", "touch_ready"],
     sensoryHighlights: {
-      netra: "Narasi suara deskriptif untuk takaran soy wax dan suhu lilin",
       rungu: "Takarir CC teks sinkron & video penerjemah isyarat JBI BISINDO",
-      kurang_awas: "Warna kontras tinggi dan garis tepi penanda sumbu lilin",
-      wicara: "Kalkulator modal lilin berbasis tombol sentuh tanpa suara"
+      wicara: "Kalkulator harga jual lilin berbasis tombol sentuh tanpa suara"
     },
     steps: [
       {
@@ -99,11 +97,9 @@ export const initialCourses = [
     defaultModal: 12000,
     defaultPrice: 28000,
     description: "Keterampilan memproduksi sabun pembersih berbahan dasar minyak kelapa dan lidah buaya yang lembut di kulit.",
-    sensoryFeatures: ["audio_desc", "subtitles", "jbi", "high_contrast", "touch_ready"],
+    sensoryFeatures: ["subtitles", "jbi", "touch_ready"],
     sensoryHighlights: {
-      netra: "Deskripsi audio adegan pelelehan gliserin dan pencetakan",
       rungu: "Takarir CC jelas dan video bahasa isyarat gerakan tangan",
-      kurang_awas: "Siluet kontras cetakan silikon agar takaran tidak tumpah",
       wicara: "Hitung untung otomatis per batang sabun tanpa bicara"
     },
     steps: [
@@ -186,11 +182,9 @@ export const initialCourses = [
     defaultModal: 20000,
     defaultPrice: 45000,
     description: "Pelatihan keterampilan memanggang kue kering cokelat renyah yang diminati banyak orang untuk usaha rumahan.",
-    sensoryFeatures: ["audio_desc", "subtitles", "jbi", "high_contrast", "touch_ready"],
+    sensoryFeatures: ["subtitles", "jbi", "touch_ready"],
     sensoryHighlights: {
-      netra: "Instruksi audio perbandingan gram adonan dan waktu memanggang",
       rungu: "Panduan takarir kata-per-kata dan isyarat untuk takaran mentega",
-      kurang_awas: "Teks resep ekstra besar dan panduan visual loyang oven",
       wicara: "Kalkulator harga toples kue dengan input tombol sentuh"
     },
     steps: [
@@ -274,11 +268,9 @@ export const initialCourses = [
     defaultModal: 10000,
     defaultPrice: 25000,
     description: "Pelatihan seni merangkai serat alami menjadi tatakan gelas dan taplak meja mini yang bernilai estetika tinggi.",
-    sensoryFeatures: ["audio_desc", "subtitles", "jbi", "high_contrast", "touch_ready"],
+    sensoryFeatures: ["subtitles", "jbi", "touch_ready"],
     sensoryHighlights: {
-      netra: "Panduan audio taktil rabaan tekstur tali rami dan kerapatan putaran",
       rungu: "Demonstrasi video isyarat JBI teknik anyaman spiral dari tengah",
-      kurang_awas: "Garis panduan pola lingkaran anyaman dengan kontras tinggi",
       wicara: "Hitung margin untung paket 4 tatakan dengan kalkulator sentuh"
     },
     steps: [

@@ -9,9 +9,13 @@ build
 
 # Environment variables & secrets (CRITICAL: Jangan pernah push .env ke GitHub)
 .env
+.env.*
 .env.local
 .env.production
 .env.development
+*.env
+*.local
+!.env.example
 
 # Vercel
 .vercel
